@@ -16,7 +16,10 @@ SET(PROJECT_NAME          ktplayer)
 SET(SRCS                        "")
 
 
-include_directories(${CMAKE_CURRENT_SOURCE_DIR}/core/include)
+include_directories(
+    ${CMAKE_CURRENT_SOURCE_DIR}/core/include
+    ${CMAKE_CURRENT_SOURCE_DIR}/play/include
+)
 
 if (IOS)
     include_directories(${CMAKE_CURRENT_SOURCE_DIR}/platform/ios/include)
@@ -27,6 +30,10 @@ endif ()
 # src
 FILE(GLOB_RECURSE src_core_c  ${CMAKE_CURRENT_SOURCE_DIR}/core/*.c)
 FILE(GLOB_RECURSE src_core_cc ${CMAKE_CURRENT_SOURCE_DIR}/core/*.cpp)
+SET (SRCS ${SRCS} ${src_core_c} ${src_core_cc})
+
+FILE(GLOB_RECURSE src_core_c  ${CMAKE_CURRENT_SOURCE_DIR}/play/*.c)
+FILE(GLOB_RECURSE src_core_cc ${CMAKE_CURRENT_SOURCE_DIR}/play/*.cpp)
 SET (SRCS ${SRCS} ${src_core_c} ${src_core_cc})
 
 
