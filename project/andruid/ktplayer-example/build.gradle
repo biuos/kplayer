@@ -48,6 +48,7 @@ android {
 }
 
 dependencies {
+    implementation project(path: ':ktplayer')
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     implementation rootProject.ext.thirdparty['ax-core-ktx']
