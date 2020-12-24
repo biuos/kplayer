@@ -1,0 +1,62 @@
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+}
+
+if (file('dependencies.gradle').exists()) {
+    apply from: 'dependencies.gradle'
+}
+
+android {
+    compileSdkVersion rootProject.ext.compileSdkVersion
+    buildToolsVersion rootProject.ext.buildToolsVersion
+
+    defaultConfig {
+        minSdkVersion rootProject.ext.minSdkVersion
+        targetSdkVersion rootProject.ext.targetSdkVersion
+
+        versionCode 1
+        versionName "1.0"
+
+        applicationId "dai.android.media"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    ndkVersion rootProject.ext.ndk_version
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+
+    dependenciesInfo {
+        includeInApk true
+        includeInBundle true
+    }
+}
+
+dependencies {
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation rootProject.ext.thirdparty['ax-core-ktx']
+    implementation rootProject.ext.thirdparty['ax-appcompat']
+
+    implementation rootProject.ext.thirdparty['g-material']
+    implementation rootProject.ext.thirdparty['ax-constraintlayout']
+
+    testImplementation rootProject.ext.thirdparty['a-junit']
+    androidTestImplementation rootProject.ext.thirdparty['ax-junit']
+    androidTestImplementation rootProject.ext.thirdparty['ax-espresso-core']
+}

@@ -1,0 +1,26 @@
+//
+// dependencies
+//
+
+ext {
+    minSdkVersion = 21
+    targetSdkVersion = 30
+    compileSdkVersion = 30
+    buildToolsVersion = '30.0.2'
+    kotlin_version = "1.4.21"
+    ndk_version = '21.1.6352462'
+}
+
+ext {
+    thirdparty = [
+            'ax-core-ktx'        : 'androidx.core:core-ktx:1.3.2',
+            'ax-appcompat'       : 'androidx.appcompat:appcompat:1.2.0',
+            'ax-constraintlayout': 'androidx.constraintlayout:constraintlayout:2.0.4',
+            'g-material'         : 'com.google.android.material:material:1.2.1',
+            'a-junit'            : 'junit:junit:4.13.1',
+            'ax-junit'           : 'androidx.test.ext:junit:1.1.2',
+            'ax-espresso-core'   : 'androidx.test.espresso:espresso-core:3.3.0',
+    ]
+}
+
+

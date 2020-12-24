@@ -1,0 +1,5 @@
+rootProject.name = "kt"
+
+include ':ktplayer'
+include ':ktplayer-example'
+
