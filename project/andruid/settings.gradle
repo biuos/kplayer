@@ -1,5 +1,4 @@
-rootProject.name = "kt"
+rootProject.name = "ktmedia"
 
 include ':ktplayer'
 include ':ktplayer-example'
-

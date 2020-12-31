@@ -1,7 +1,7 @@
 #ifndef KT_LOGGER_INCLUDE_H
 #define KT_LOGGER_INCLUDE_H
 
-#include "Define.h"
+#include "Namespace.h"
 
 #include <mutex>
 

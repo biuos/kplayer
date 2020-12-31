@@ -1,5 +1,5 @@
-#ifndef  KT_DEFINE_INCLUDE_H
-#define KT_DEFINE_INCLUDE_H
+#ifndef KT_NAMESPACE_INCLUDE_H
+#define KT_NAMESPACE_INCLUDE_H
 
 #ifndef NS_KT_START
 #define NS_KT_START namespace kt {
@@ -9,4 +9,4 @@
 #define NS_KT_END }
 #endif
 
-#endif//KT_DEFINE_INCLUDE_H
+#endif//KT_NAMESPACE_INCLUDE_H
