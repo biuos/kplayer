@@ -1,4 +1,4 @@
-package dai.android.media
+package dai.android.media.example
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

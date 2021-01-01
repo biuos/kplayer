@@ -1,109 +1,52 @@
 #ifndef KT_LOGGER_INCLUDE_H
 #define KT_LOGGER_INCLUDE_H
 
-#include "Namespace.h"
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-#include <mutex>
-
-NS_KT_START
-
-//class Logger;
-
-class Logger {
-public:
-    enum LogLevel {
-        VERBOSE = 2,
-        DEBUG   = 3,
-        INFO    = 4,
-        WARN    = 5,
-        ERROR   = 6
-    };
-
-    ~Logger() = default;
-
-    Logger(const Logger&)            = delete;
-    Logger(const Logger&&)           = delete;
-    Logger& operator=(const Logger&) = delete;
-
-private:
-    Logger() = default;
-
-    void logger(int level,
-                const char *tag,
-                const char *filename, const char *function, int line,
-                const char *message);
-
-    static std::mutex _s_mutex;
-    static Logger    *_s_instance;
-
-public:
-    static Logger& getLogger();
-
-    static void init(void *priv);
-
-    void verbose(const char *tag,
-                 const char *filename, const char *function, int line,
-                 const char *message) {
-        logger(VERBOSE, tag, filename, function, line, message);
-    }
-
-    void debug(const char *tag,
-               const char *filename, const char *function, int line,
-               const char *message) {
-        logger(DEBUG, tag, filename, function, line, message);
-    }
-
-    void info(const char *tag,
-              const char *filename, const char *function, int line,
-              const char *message) {
-        logger(INFO, tag, filename, function, line, message);
-    }
-
-    void warn(const char *tag,
-              const char *filename, const char *function, int line,
-              const char *message) {
-        logger(WARN, tag, filename, function, line, message);
-    }
-
-    void error(const char *tag,
-               const char *filename, const char *function, int line,
-               const char *message) {
-        logger(ERROR, tag, filename, function, line, message);
-    }
+typedef enum LogLevel {
+    LOG_VERBOSE = 2,
+    LOG_DEBUG   = 3,
+    LOG_INFO    = 4,
+    LOG_WARN    = 5,
+    LOG_ERROR   = 6
+} LogLevel;
 
 
-    void message(int level,
-                 const char *tag,
-                 const char *filename, const char *function, int line,
-                 const char *fmt, ...);
-};
+extern void set_min_logger_level( LogLevel min_level );
+extern void logger_message( LogLevel level,
+                                const char *tag,
+                                const char *filename, const char *func, int line,
+                                const char *fmt, ...);
 
-NS_KT_END
-
-
-#define LOG_VERBOSE(tag, fmt, ...) \
-    do { \
-        kt::Logger::getLogger().message(kt::Logger::VERBOSE, tag, __FILE_NAME__, __FUNCTION__, __LINE__, fmt, ##__VA_ARGS__); \
+#define LOG_VERBOSE(tag, fmt, ...)                                                                  \
+    do {                                                                                            \
+        logger_message(LOG_VERBOSE, tag, __FILE_NAME__, __FUNCTION__, __LINE__, fmt, ##__VA_ARGS__);\
     } while(0)
 
-#define LOG_DEBUG(tag, fmt, ...) \
-    do { \
-        kt::Logger::getLogger().message(kt::Logger::DEBUG, tag, __FILE_NAME__, __FUNCTION__, __LINE__, fmt, ##__VA_ARGS__); \
+#define LOG_DEBUG(tag, fmt, ...)                                                                   \
+    do {                                                                                           \
+        logger_message(LOG_DEBUG, tag, __FILE_NAME__, __FUNCTION__, __LINE__, fmt, ##__VA_ARGS__); \
     } while(0)
 
-#define LOG_INFO(tag, fmt, ...) \
-    do { \
-        kt::Logger::getLogger().message(kt::Logger::INFO, tag, __FILE_NAME__, __FUNCTION__, __LINE__, fmt, ##__VA_ARGS__); \
+#define LOG_INFO(tag, fmt, ...)                                                                    \
+    do {                                                                                           \
+        logger_message(LOG_INFO, tag, __FILE_NAME__, __FUNCTION__, __LINE__, fmt, ##__VA_ARGS__);  \
     } while(0)
 
-#define LOG_WARN(tag, fmt, ...) \
-    do { \
-        kt::Logger::getLogger().message(kt::Logger::WARN, tag, __FILE_NAME__, __FUNCTION__, __LINE__, fmt, ##__VA_ARGS__); \
+#define LOG_WARN(tag, fmt, ...)                                                                    \
+    do {                                                                                           \
+        logger_message(LOG_WARN, tag, __FILE_NAME__, __FUNCTION__, __LINE__, fmt, ##__VA_ARGS__);  \
     } while(0)
 
-#define LOG_ERROR(tag, fmt, ...) \
-    do { \
-        kt::Logger::getLogger().message(kt::Logger::ERROR, tag, __FILE_NAME__, __FUNCTION__, __LINE__, fmt, ##__VA_ARGS__); \
+#define LOG_ERROR(tag, fmt, ...)                                                                   \
+    do {                                                                                           \
+        logger_message(LOG_ERROR, tag, __FILE_NAME__, __FUNCTION__, __LINE__, fmt, ##__VA_ARGS__); \
     } while(0)
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif//KT_LOGGER_INCLUDE_H
