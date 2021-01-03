@@ -10,24 +10,6 @@
 extern "C" {
 #endif
 
-typedef enum J4AFieldType {
-    J4A_CLASS,
-    J4A_FIELD,
-    J4A_STATIC_FIELD,
-    J4A_STATIC_FIELD_AS_INT,
-    J4A_METHOD,
-    J4A_STATIC_METHOD
-} J4AFieldType;
-
-
-typedef struct J4AField {
-    const char *name;
-    const char *method;
-    const char *signature;
-    int offset;
-    int mandatory;
-} J4AField;
-
 
 /***************************************************************************************************
  * Exception Handle
@@ -70,6 +52,54 @@ jfieldID J4A_GetStaticFieldID__catchAll(JNIEnv *env, jclass clazz, const char *f
  **************************************************************************************************/
 jbyteArray J4A_NewByteArray__catchAll             (JNIEnv *env, jsize capacity);
 jbyteArray J4A_NewByteArray__asGlobalRef__catchAll(JNIEnv *env, jsize capacity);
+
+
+/***************************************************************************************************
+ * function like MPV jni
+ **************************************************************************************************/
+typedef enum J4AFieldType {
+    J4A_CLASS,
+    J4A_FIELD,
+    J4A_STATIC_FIELD,
+    J4A_STATIC_FIELD_AS_INT,
+    J4A_METHOD,
+    J4A_STATIC_METHOD
+} J4AFieldType;
+
+
+typedef struct J4AField {
+    const char *name;
+    const char *method;
+    const char *signature;
+    J4AFieldType type;
+    int          offset;
+    int          mandatory;
+} J4AField;
+
+void    J4A_SaveJvm(JavaVM *vm);
+JNIEnv *J4A_GetEnv();
+
+char   *J4A_JStringToUtfChar(JNIEnv *env, jstring string);
+jstring J4A_UtfCharToJString(JNIEnv *env, char *utf_chars);
+
+bool J4A_init_jfields (JNIEnv *env, void *jfields, const struct J4AField *jfields_mapping, int global);
+bool J4A_reset_jfields(JNIEnv *env, void *jfields, const struct J4AField *jfields_mapping, int global);
+
+
+#ifdef __cplusplus
+#   define J4A_DO( what, obj,   method, ...)    env->what(obj, method, ##__VA_ARGS__)
+#else
+#   define J4A_DO( what, obj,   method, ...) (*env)->what(env, obj, method, ##__VA_ARGS__)
+#endif
+#define        J4A_CALL_INT(obj,   method, ...) J4A_DO( CallIntMethod,       obj,   method, ##__VA_ARGS__)
+#define J4A_CALL_STATIC_INT(clazz, method, ...) J4A_DO( CallStaticIntMethod, clazz, method, ##__VA_ARGS__)
+#define       J4A_CALL_BOOL(obj,   method, ...) J4A_DO( CallBooleanMethod,   obj,   method, ##__VA_ARGS__)
+#define       J4A_CALL_VOID(obj,   method, ...) J4A_DO( CallVoidMethod,      obj,   method, ##__VA_ARGS__)
+#define     J4A_CALL_OBJECT(obj,   method, ...) J4A_DO( CallObjectMethod,    obj,   method, ##__VA_ARGS__)
+#define             J4A_NEW(clazz, method, ...) J4A_DO( NewObject,           clazz, method, ##__VA_ARGS__)
+#define         J4A_GET_INT(obj,         field) J4A_DO( GetIntField,         obj, field)
+#define        J4A_GET_LONG(obj,         field) J4A_DO( GetLongField,        obj, field)
+#define        J4A_GET_BOOL(obj,         field) J4A_DO( GetBoolField,        obj, field)
 
 
 #ifdef __cplusplus
