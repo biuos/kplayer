@@ -2,3 +2,4 @@ rootProject.name = "ktmedia"
 
 include ':ktplayer'
 include ':ktplayer-example'
+include ':example:live-rtmp'
