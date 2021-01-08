@@ -10,6 +10,7 @@ add_library(
         BBLive SHARED
 
         ScreenLive_jni.cpp
+        RtmpWrap.cpp
 )
 
 

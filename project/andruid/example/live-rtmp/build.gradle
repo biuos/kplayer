@@ -61,6 +61,8 @@ dependencies {
     implementation rootProject.ext.thirdparty['ax-appcompat']
     implementation rootProject.ext.thirdparty['g-material']
     implementation rootProject.ext.thirdparty['ax-constraintlayout']
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
 
     testImplementation rootProject.ext.thirdparty['a-junit']
     androidTestImplementation rootProject.ext.thirdparty['ax-junit']

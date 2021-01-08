@@ -3,4 +3,7 @@
 
     <string name="strLiveStart">Live Start</string>
     <string name="strLiveComplete">Live Complete</string>
+
+    <string name="strLiveOperatorStart">开始直播</string>
+    <string name="strLiveOperatorEnd">结束直播</string>
 </resources>
